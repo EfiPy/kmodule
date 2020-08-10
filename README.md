@@ -3,7 +3,7 @@ Python wrapper for Linux insmod, rmmod, lsmod and modinfo.
 It test in X86_64 and Rapberry pi 4.  
 ## Build/Install/Uninstall
 Required library  
-```libkmod```
+```libkmod```  
 Build this project.  
 ```python3 setup.py bdist_wheel```  
 Install  
@@ -134,6 +134,6 @@ Uninstall
           None if success. Exception if fail.
 
 ## Arthur
-Max Wu <EfiPy.Core@gmail.com>
+Max Wu <EfiPy.Core@gmail.com>  
 ## License
-GPLv2
+GPLv2  
