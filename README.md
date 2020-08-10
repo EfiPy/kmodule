@@ -1,0 +1,139 @@
+# kmodule
+Python wrapper for Linux insmod, rmmod, lsmod and modinfo.  
+It test in X86_64 and Rapberry pi 4.  
+## Build/Install/Uninstall
+Required library
+```libkmod```
+Build this project.  
+```python3 setup.py bdist_wheel```
+Install
+```pip3 install dist/$(ls dist/)```
+Uninstall
+```pip3 uninstall kmodule```
+## Example (python invoked as root)
+    >>> import kmodule as km
+    >>> mlist = km.lsmod ()
+    >>> for m, v in mlist.items ():
+    ...    print ('======================')
+    ...    print ('name: %s' % v.name)
+    ...    print ('    v.size: 0x%X' % v.size)
+    ...    print ('  v.opened: %d'   % v.opened)
+    ...    print ('  v.status: %s'   % v.status)
+    ...    print ('  v.offset: 0x%X' % v.offset)
+    ...    print ('  v.usedby:', v.usedby)
+    ======================
+    name: psmouse
+        v.size: 0x25000
+      v.opened: 0
+      v.status: Live
+      v.offset: 0xFFFFFFFFC03E2000
+      ......
+    ======================
+    name: cryptd
+        v.size: 0x6000
+      v.opened: 3
+      v.status: Live
+      v.offset: 0xFFFFFFFFC04A9000
+    >>>
+    >>> km.insmod ("hello-5.ko")
+    >>> km.rmmod("hello_5")
+    >>> minfo = km.modinfo ("hello-5.ko", "e1000")
+    >>> print (minfo)
+      ......
+## Usage
+    lsmod()
+        NAME
+               kmodule.lsmod() - Show the status of modules in the Linux Kernel
+
+        DESCRIPTION
+               kmodule.lsmod() is a trivial program which nicely formats the contents
+               of the /proc/modules, showing what kernel modules are currently loaded.
+
+        RETURN
+          Dict with module name as key, value is class _lsmod if success. Exception if fail.
+
+        DATA STRUCT
+
+          class _lsmod(object)
+
+            Data defined here:
+              name
+                module name
+              size
+                module size
+              opened
+                module is opend
+              status
+                module status
+              offset
+                offset in memory
+              usedby
+                mouses using this module.
+
+    modinfo(*modules, basedir='', kernel=None)
+        NAME
+               kmodule.modinfo - Show information about a Linux Kernel module
+
+        DESCRIPTION
+               kmodule.modinfo extracts information from the Linux Kernel modules given
+               in python.
+
+               If the module name is not a filename, then the /lib/modules/version
+               directory is searched.
+
+               kmodule.modinfo by default returns every attribute of the module in dict.
+               The filename is listed the same way (although it's not really an attribute).
+
+        OPTIONS
+               basedir
+                   Root directory for modules, / by default.
+
+               kernel
+                   Provide information about a kernel other than the running one.
+
+                   This is particularly useful for distributions needing to extract
+                   information from a newly installed (but not yet running) set of
+                   kernel modules.
+
+                   For example, you wish to find which firmware files are needed by
+                   various modules in a new kernel for which you must make an
+                   initrd/initramfs image prior to booting.
+
+        RETURN
+          Dict in tuple if success. Exception if fail.
+
+        RETURN DATA
+
+          (dict1, ... dictN)
+
+    rmmod(*modules, force=False, syslog=False, wait=False, verbose=0)
+        NAME
+               kmodule.rmmod() - Simple program to remove a module from the Linux Kernel
+
+        DESCRIPTION
+               kmodule.rmmod() is a trivial program to remove a module (when module
+               unloading support is provided) from the kernel.
+
+        OPTIONS
+               force
+                   This option can be extremely dangerous: it has no effect unless
+                   CONFIG_MODULE_FORCE_UNLOAD was set when the kernel was compiled.
+
+                   With this option, you can remove modules which are being used, or
+                   which are not designed to be removed, or have been marked as
+                   unsafe (see kmodule.lsmod()).
+
+               syslog
+                   Send errors to syslog instead of standard error.
+
+               verbose
+                   Print messages about what the program is doing. Usually rmmod prints
+                   messages only if something goes wrong.
+
+        RETURN
+          None if success. Exception if fail.
+
+## Arthur
+Max Wu <EfiPy.Core@gmail.com>
+## License
+GPLv2
