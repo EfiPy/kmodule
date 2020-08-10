@@ -5,11 +5,11 @@ It test in X86_64 and Rapberry pi 4.
 Required library
 ```libkmod```
 Build this project.  
-```python3 setup.py bdist_wheel```
-Install
-```pip3 install dist/$(ls dist/)```
-Uninstall
-```pip3 uninstall kmodule```
+```python3 setup.py bdist_wheel```  
+Install  
+```pip3 install dist/$(ls dist/)```  
+Uninstall  
+```pip3 uninstall kmodule```  
 ## Example (python invoked as root)
     >>> import kmodule as km
     >>> mlist = km.lsmod ()
