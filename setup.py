@@ -37,7 +37,7 @@ setuptools.setup(
     name        = 'kmodule',  
     py_modules  =  kmodulep,
     ext_modules = [kmodulec],
-    version     = '0.5.0',
+    version     = '0.5.00',
     # scripts     = ['kmodule'] ,
     author      = "MaxWu",
     author_email= "EfiPy.Core@gmail.com",
