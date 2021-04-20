@@ -1,5 +1,7 @@
 /*
  *  hello-5.c - Demonstrates command line argument passing to a module.
+ *
+ *  (https://tldp.org/LDP/lkmpg/2.6/html/lkmpg.html#AEN345)
  */
 #include <linux/module.h>
 #include <linux/moduleparam.h>
