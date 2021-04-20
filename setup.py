@@ -36,7 +36,7 @@ setuptools.setup(
     name        = 'kmodule',  
     py_modules  =  kmodulep,
     ext_modules = [kmodulec],
-    version     = '0.5.00',
+    version     = '0.5.01',
     author      = "MaxWu",
     author_email= "EfiPy.Core@gmail.com",
     description = "Python wrapper for insmod, rmmod, lsmod, modinfo of libkmod",
