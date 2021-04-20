@@ -1,16 +1,20 @@
 # kmodule
 Python wrapper for Linux insmod, rmmod, lsmod and modinfo.  
 It test in X86_64 and Rapberry pi 4.  
-## Build/Install/Uninstall
-Required library  
-```libkmod```  
-Build this project.  
-```python3 setup.py bdist_wheel```  
-Install  
-```pip3 install dist/$(ls dist/)```  
-Uninstall  
-```pip3 uninstall kmodule```  
-## Example (python invoked as root)
+# Homepage
+[kmodule](https://github.com/EfiPy/kmodule)
+# Build sample
+- Download [Linux kernel sample module hello-5 from](https://github.com/EfiPy/kmodule/tree/master/hello-5)
+- Confirm Makefile, hello-5.c and sample.py exist.
+- Install build kernel module required toolchain, header files and libraries.
+- Required library
+-```libkmod```
+- Goto hello-5 folder, run
+```
+make
+python3 sample.py
+```
+# Example (python invoked as root)
     >>> import kmodule as km
     >>> mlist = km.lsmod ()
     >>> for m, v in mlist.items ():
@@ -40,7 +44,7 @@ Uninstall
     >>> minfo = km.modinfo ("hello-5.ko", "e1000")
     >>> print (minfo)
       ......
-## Usage
+# Usage
     lsmod()
         NAME
                kmodule.lsmod() - Show the status of modules in the Linux Kernel
@@ -133,7 +137,7 @@ Uninstall
         RETURN
           None if success. Exception if fail.
 
-## Arthur
+# Arthur
 Max Wu <EfiPy.Core@gmail.com>  
-## License
+# License
 GPLv2  
