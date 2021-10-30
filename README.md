@@ -5,7 +5,7 @@ It test in X86_64 and Rapberry pi 4.
 [kmodule](https://github.com/EfiPy/kmodule)
 # pull kmod from remote
 If it's the first time you check-out a repo you need to use --init first  
-- git submodule update --init --recursive
+- git submodule update --init --recursive  
 --remote was added to support updating to latest tips of remote branches  
 - git submodule update --recursive
 # Build sample
