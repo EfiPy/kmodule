@@ -2,3 +2,4 @@ build/
 dist/
 kmodule.egg-info/
 __pycache__/
+kmod-*/

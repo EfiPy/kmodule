@@ -1,6 +1,6 @@
 # setup.c: install utility of python wrapper for module-init-tools
 #          insmod, rmmod, lsmod, modinfo
-#  Copyright (C) 2020  MaxWu <EfiPy.core@gmail.com>.
+#  Copyright (C) 2020 -2021  MaxWu <EfiPy.core@gmail.com>.
 #
 #  This program is free software; you can redistribute it and/or modify
 #  it under the terms of the GNU General Public License as published by
@@ -13,8 +13,34 @@
 #  GNU General Public License for more details.
 #
 
-from setuptools import setup, Extension
+import setuphelp as KmodHelp
+from setuptools import Extension
 import setuptools
+
+from distutils.command.build import build
+from distutils.command.clean import clean
+
+TopDir, KmodDir, KmodBuild = bf = KmodHelp.KmodFolderBuild ('kmod')
+
+class CustomCleanCommand(clean):
+    def run(self):
+        print ("<<<<<<<<<<<<<<<<<<<<<<<<<<<<")
+        print (f"kmod folders are {bf}")
+        KmodHelp.KmodClean (KmodBuild)
+        super().run()
+        print ("<<<<<<<<<<<<<<<<<<<<<<<<<<<<")
+
+class CustomBuildCommand(build):
+    def run(self):
+        print (">>>>>>>>>>>>>>>>>>>>>>>")
+
+        print (f"kmod folders are {bf}")
+        KmodHelp.KmodConfigureBuild (KmodDir)
+        KmodHelp.KmodMakefileBuild (KmodDir, KmodBuild)
+        KmodHelp.KmodBuild (KmodBuild)
+
+        super().run()
+        print (">>>>>>>>>>>>>>>>>>>>>>>")
 
 with open("README.md", "r") as fh:
   long_description = fh.read()
@@ -51,4 +77,8 @@ setuptools.setup(
          "License :: OSI Approved :: GNU General Public License v2 (GPLv2)",
          "Operating System :: POSIX :: Linux",
     ],
+    cmdclass={
+        'clean': CustomCleanCommand,
+        'build': CustomBuildCommand,
+    },
 )
