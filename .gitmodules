@@ -1,0 +1,3 @@
+[submodule "kmod"]
+	path = kmod
+	url = https://github.com/kmod-project/kmod.git
