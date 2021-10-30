@@ -13,6 +13,8 @@
 #  GNU General Public License for more details.
 #
 
+import os
+
 import setuphelp as KmodHelp
 from setuptools import Extension
 import setuptools
@@ -21,18 +23,19 @@ from distutils.command.build import build
 from distutils.command.clean import clean
 
 TopDir, KmodDir, KmodBuild = bf = KmodHelp.KmodFolderBuild ('kmod')
+KmodSharedInc = os.path.join (KmodDir, 'shared')
+KmodSharedLib = os.path.join (KmodBuild, 'shared/.libs')
 
 class CustomCleanCommand(clean):
+
     def run(self):
-        print ("<<<<<<<<<<<<<<<<<<<<<<<<<<<<")
         print (f"kmod folders are {bf}")
         KmodHelp.KmodClean (KmodBuild)
         super().run()
-        print ("<<<<<<<<<<<<<<<<<<<<<<<<<<<<")
 
 class CustomBuildCommand(build):
+
     def run(self):
-        print (">>>>>>>>>>>>>>>>>>>>>>>")
 
         print (f"kmod folders are {bf}")
         KmodHelp.KmodConfigureBuild (KmodDir)
@@ -40,7 +43,6 @@ class CustomBuildCommand(build):
         KmodHelp.KmodBuild (KmodBuild)
 
         super().run()
-        print (">>>>>>>>>>>>>>>>>>>>>>>")
 
 with open("README.md", "r") as fh:
   long_description = fh.read()
@@ -48,12 +50,11 @@ with open("README.md", "r") as fh:
 kmodulec = Extension('_kmodule',
                      ['kmodule.c',
                       'log.c',
-                      'util.c',
                      ],
                      define_macros       =[("KMODULEPY", None)],
-                     extra_compile_args  =["-g0"],
-                     extra_link_args     =['-Wl,--strip-all'],
-                     libraries           =['kmod'],
+                     extra_compile_args  =['-Wl,--strip-all', f"-I{KmodDir}"],
+                     extra_link_args     =['-Wl,--strip-all', f'-L{KmodSharedLib}'],
+                     libraries           =['kmod', 'shared'],
                     )
 
 kmodulep = ['kmodule.__init__']

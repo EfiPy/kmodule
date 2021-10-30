@@ -20,7 +20,7 @@
 #include <sys/utsname.h>
 #include <libkmod.h>
 
-#include "util.h"
+#include <shared/util.h>
 #include "log.h"
 
 ///////////////////////////////////////////////////////////////////////
