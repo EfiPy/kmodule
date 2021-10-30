@@ -33,7 +33,7 @@ kmodulec = Extension('_kmodule',
 kmodulep = ['kmodule.__init__']
 
 setuptools.setup(
-    name        = 'kmodule',  
+    name        = 'kmodule',
     py_modules  =  kmodulep,
     ext_modules = [kmodulec],
     version     = '0.5.10',
