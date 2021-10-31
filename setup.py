@@ -23,8 +23,8 @@ from distutils.command.build import build
 from distutils.command.clean import clean
 
 TopDir, KmodDir, KmodBuild = bf = KmodHelp.KmodFolderBuild ('kmod')
-KmodSharedInc = os.path.join (KmodDir, 'shared')
-KmodSharedLib = os.path.join (KmodBuild, 'shared/.libs')
+KmodSharedLib   = os.path.join (KmodBuild, 'shared/.libs')
+KmodInternalLib = os.path.join (KmodBuild, 'libkmod/.libs')
 
 class CustomCleanCommand(clean):
 
@@ -52,9 +52,9 @@ kmodulec = Extension('_kmodule',
                       'log.c',
                      ],
                      define_macros       =[("KMODULEPY", None)],
-                     extra_compile_args  =['-Wl,--strip-all', f"-I{KmodDir}"],
-                     extra_link_args     =['-Wl,--strip-all', f'-L{KmodSharedLib}'],
-                     libraries           =['kmod', 'shared'],
+                     extra_compile_args  =['-Wl,--strip-all', '-g0', f"-I{KmodDir}", f'-I{KmodBuild}'],
+                     extra_link_args     =['-Wl,--strip-all', f'-L{KmodSharedLib}', f'-L{KmodInternalLib}',],
+                     libraries           =['kmod-internal', 'shared'],
                     )
 
 kmodulep = ['kmodule.__init__']

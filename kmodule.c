@@ -13,15 +13,17 @@
     GNU General Public License for more details.
 */
 
+#include <config.h>
+
 #include <Python.h>
 #define PYSAMPLE_MODULE
 #include "structmember.h"
 
 #include <sys/utsname.h>
-#include <libkmod.h>
+#include <libkmod/libkmod.h>
 
 #include <shared/util.h>
-#include "log.h"
+#include <tools/kmod.h>
 
 ///////////////////////////////////////////////////////////////////////
 ///
