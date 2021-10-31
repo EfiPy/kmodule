@@ -19,6 +19,7 @@ import setuphelp as KmodHelp
 from setuptools import Extension
 import setuptools
 
+from setuptools.command.install import install
 from distutils.command.build import build
 from distutils.command.clean import clean
 
@@ -31,6 +32,17 @@ class CustomCleanCommand(clean):
     def run(self):
         print (f"kmod folders are {bf}")
         KmodHelp.KmodClean (KmodBuild)
+        super().run()
+
+class CustomInstallCommand(install):
+
+    def run(self):
+
+        print (f"kmod folders are {bf}")
+        KmodHelp.KmodConfigureBuild (KmodDir)
+        KmodHelp.KmodMakefileBuild (KmodDir, KmodBuild)
+        KmodHelp.KmodBuild (KmodBuild)
+
         super().run()
 
 class CustomBuildCommand(build):
@@ -79,6 +91,7 @@ setuptools.setup(
          "Operating System :: POSIX :: Linux",
     ],
     cmdclass={
+        'install': CustomInstallCommand,
         'clean': CustomCleanCommand,
         'build': CustomBuildCommand,
     },

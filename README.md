@@ -8,12 +8,15 @@ If it's the first time you check-out a repo you need to use --init first
 `git submodule update --init --recursive`  
 remote was added to support updating to latest tips of remote branches  
 `git submodule update --recursive`
+# Build kmodule
+- `python3 setup.py build` (Used by dev)
+# install kmodule
+- `pip3 install kmodule` (prefered)  
+- `python3 setup.py install` (not prefered)  
 # Build sample
 - Download [Linux kernel sample module hello-5 from](https://github.com/EfiPy/kmodule/tree/master/hello-5)
 - Confirm Makefile, hello-5.c and sample.py exist.
 - Install build kernel module required toolchain, header files and libraries.
-- Required library
--```libkmod```
 - Goto hello-5 folder, run
 ```
 make

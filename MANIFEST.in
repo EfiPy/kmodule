@@ -1,4 +1,3 @@
 include setuphelp.py
-include *.h
 include hello-5/*
 recursive-include kmod *
