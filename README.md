@@ -3,16 +3,15 @@ Python wrapper for Linux insmod, rmmod, lsmod and modinfo.
 It test in X86_64 and Rapberry pi 4.  
 # Homepage
 [kmodule](https://github.com/EfiPy/kmodule)
-# pull kmod from remote
-If it's the first time you check-out a repo you need to use --init first  
+# Build kmodule manual
+## pull kmod from remote
+Pull kmod source code in submodule.
 `git submodule update --init --recursive`  
-remote was added to support updating to latest tips of remote branches  
-`git submodule update --recursive`
-# Build kmodule
-- `python3 setup.py build` (Used by dev)
-# install kmodule
+## install kmodule
 - `pip3 install kmodule` (prefered)  
 - `python3 setup.py install` (not prefered)  
+## Build kmodule
+- `python3 setup.py build` (Used by dev)
 # Build sample
 - Download [Linux kernel sample module hello-5 from](https://github.com/EfiPy/kmodule/tree/master/hello-5)
 - Confirm Makefile, hello-5.c and sample.py exist.
@@ -117,6 +116,20 @@ python3 sample.py
         RETURN DATA
 
           (dict1, ... dictN)
+
+    insmod(module, **params)
+        NAME
+          kmodule.insmod() - Simple program to insert a module into the Linux Kernel
+    
+        DESCRIPTION
+          kmodule.insmod is a trivial program to insert a module into the kernel.
+    
+          Only the most general of error messages are reported: as the work of
+          trying to link the module is now done inside the kernel, the dmesg
+          usually gives more information about errors.
+    
+        RETURN
+          None if success. Exception if fail.
 
     rmmod(*modules, force=False, syslog=False, wait=False, verbose=0)
         NAME

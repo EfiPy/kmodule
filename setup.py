@@ -1,6 +1,6 @@
-# setup.c: install utility of python wrapper for module-init-tools
+# setup.py: install utility of python wrapper for module-init-tools
 #          insmod, rmmod, lsmod, modinfo
-#  Copyright (C) 2020 -2021  MaxWu <EfiPy.core@gmail.com>.
+#  Copyright (C) 2020 - 2021  MaxWu <EfiPy.core@gmail.com>.
 #
 #  This program is free software; you can redistribute it and/or modify
 #  it under the terms of the GNU General Public License as published by
@@ -75,7 +75,7 @@ setuptools.setup(
     name        = 'kmodule',
     py_modules  =  kmodulep,
     ext_modules = [kmodulec],
-    version     = '0.5.10',
+    version     = '0.6.0',
     author      = "MaxWu",
     author_email= "EfiPy.Core@gmail.com",
     description = "Python wrapper for insmod, rmmod, lsmod, modinfo of libkmod",

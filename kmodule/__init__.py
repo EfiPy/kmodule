@@ -130,7 +130,7 @@ DESCRIPTION
   usually gives more information about errors.
 
 RETURN
-  dicts in tuple if success. Exception if fail.
+  None if success. Exception if fail.
 
 '''
 
