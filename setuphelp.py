@@ -39,8 +39,8 @@ def KmodConfigureBuild (SrcFolder):
 
     os.chdir (SrcFolder)
 
-    subprocess.run (['touch', 'libkmod/docs/gtk-doc.make'])
-    subprocess.run (['autoreconf', '--force', '--install', '--symlink'])
+    subprocess.run (['touch', 'libkmod/docs/gtk-doc.make'], check = True)
+    subprocess.run (['autoreconf', '--force', '--install', '--symlink'], check = True)
 
     os.chdir (CurrentDir)
 
@@ -68,7 +68,7 @@ def KmodMakefileBuild (SrcFolder, BuildFolder):
                     '--with-zstd',
                     '--disable-manpages',
                     '--disable-test-modules',
-                    "CFLAGS=-O2"])
+                    "CFLAGS=-O2"], check = True)
 
     os.chdir (CurrentDir)
 
@@ -77,7 +77,7 @@ def KmodBuild (BuildFolder):
     CurrentDir = os.getcwd ()
     os.chdir (BuildFolder)
 
-    subprocess.run (['make'])
+    subprocess.run (['make'], check = True)
 
     os.chdir (CurrentDir)
 
@@ -86,7 +86,7 @@ def KmodClean (BuildFolder):
     CurrentDir = os.getcwd ()
     os.chdir (BuildFolder)
 
-    subprocess.run (['make', 'clean'])
+    subprocess.run (['make', 'clean'], check = True)
 
     os.chdir (CurrentDir)
 
