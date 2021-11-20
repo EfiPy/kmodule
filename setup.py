@@ -65,7 +65,7 @@ kmodulec = Extension('_kmodule',
                      ],
                      define_macros       =[("KMODULEPY", None)],
                      extra_compile_args  =['-Wl,--strip-all', '-g0', f"-I{KmodDir}", f'-I{KmodBuild}'],
-                     extra_link_args     =['-Wl,--strip-all', f'-L{KmodSharedLib}', f'-L{KmodInternalLib}',],
+                     extra_link_args     =['-Wl,--strip-all', '-lzstd', '-llzma', '-lcrypto', f'-L{KmodSharedLib}', f'-L{KmodInternalLib}',],
                      libraries           =['kmod-internal', 'shared'],
                     )
 

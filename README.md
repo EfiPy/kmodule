@@ -3,16 +3,28 @@ Python wrapper for Linux insmod, rmmod, lsmod and modinfo.
 It test in X86_64 and Rapberry pi 4.  
 # Homepage
 [kmodule](https://github.com/EfiPy/kmodule)
-# Build kmodule manual
-## pull kmod from remote
-Pull kmod source code in submodule.
-`git submodule update --init --recursive`  
-## install kmodule
-- `pip3 install kmodule` (prefered)  
-- `python3 setup.py install` (not prefered)  
+# Required packages
+Ubuntu 20.04 as example...
+```
+apt update
+apt-get install build-essential libtool pkgconf libzstd-dev liblzma-dev libssl-dev
+apt-get install python3 python3-pip
+```
+# Pull kmodule from pypi
+`pip3 install kmodule`
+# Build kmodule
+Pull kmod source code with submodule.
+```
+git clone git@github.com:EfiPy/kmodule.git
+cd kmodule
+git submodule update --init --recursive
+cd -
+```
+## Build and Install kmodule local
+- `python3 setup.py install`
 ## Build kmodule
-- `python3 setup.py build` (Used by dev)
-# Build sample
+- `python3 setup.py build`
+#  Exmaples
 - Download [Linux kernel sample module hello-5 from](https://github.com/EfiPy/kmodule/tree/master/hello-5)
 - Confirm Makefile, hello-5.c and sample.py exist.
 - Install build kernel module required toolchain, header files and libraries.

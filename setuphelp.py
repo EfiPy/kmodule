@@ -61,7 +61,14 @@ def KmodMakefileBuild (SrcFolder, BuildFolder):
     os.chdir (BuildFolder)
     RunCmd = os.path.join (SrcFolder, 'configure')
 
-    subprocess.run ([RunCmd, '--disable-manpages', '--disable-test-modules', "CFLAGS=-O2"])
+    subprocess.run ([RunCmd,
+                    '--with-openssl',
+                    '--with-xz',
+                    '--with-zlib',
+                    '--with-zstd',
+                    '--disable-manpages',
+                    '--disable-test-modules',
+                    "CFLAGS=-O2"])
 
     os.chdir (CurrentDir)
 
