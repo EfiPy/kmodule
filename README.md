@@ -11,7 +11,7 @@ apt-get install build-essential libtool pkgconf libzstd-dev liblzma-dev libssl-d
 apt-get install python3 python3-pip
 ```
 # Pull kmodule from pypi
-`pip3 install kmodule`
+`pip3 install kmodule [--install-option=[--with-zstd | --with-xz | --with-zlib | --with-openssl]]`
 # Build kmodule
 Pull kmod source code with submodule.
 ```
@@ -21,9 +21,9 @@ git submodule update --init --recursive
 cd -
 ```
 ## Build and Install kmodule local
-- `python3 setup.py install`
+- `python3 setup.py install [--with-zstd --with-xz --with-zlib --with-openssl]`
 ## Build kmodule
-- `python3 setup.py build`
+- `python3 setup.py build [--with-zstd --with-xz --with-zlib --with-openssl]`
 #  Exmaples
 - Download [Linux kernel sample module hello-5 from](https://github.com/EfiPy/kmodule/tree/master/hello-5)
 - Confirm Makefile, hello-5.c and sample.py exist.
@@ -170,6 +170,22 @@ python3 sample.py
         RETURN
           None if success. Exception if fail.
 
+# History
+0.6.0:
+- invoke Linux official kmod source code as static link in kmodule
+0.6.1:
+- Add install options: --with-zstd, --with-xz, --with-zlib, --with-openssl
+```
+    python3 setup.py build --help
+      --with-zstd                          handle Zstandard-compressed modules
+                                           [default=disabled]
+      --with-xz                            handle Xz-compressed modules
+                                           [default=disabled]
+      --with-zlib                          handle gzipped modules
+                                           [default=disabled]
+      --with-openssl                       handle PKCS7 signatures
+                                           [default=disabled]
+```
 # Arthur
 Max Wu <EfiPy.Core@gmail.com>  
 # License

@@ -44,7 +44,7 @@ def KmodConfigureBuild (SrcFolder):
 
     os.chdir (CurrentDir)
 
-def KmodMakefileBuild (SrcFolder, BuildFolder):
+def KmodMakefileBuild (SrcFolder, BuildFolder, ConfigString):
 
     CurrentDir = os.getcwd ()
 
@@ -62,13 +62,9 @@ def KmodMakefileBuild (SrcFolder, BuildFolder):
     RunCmd = os.path.join (SrcFolder, 'configure')
 
     subprocess.run ([RunCmd,
-                    '--with-openssl',
-                    '--with-xz',
-                    '--with-zlib',
-                    '--with-zstd',
                     '--disable-manpages',
                     '--disable-test-modules',
-                    "CFLAGS=-O2"], check = True)
+                    "CFLAGS=-O2"] + ConfigString, check = True)
 
     os.chdir (CurrentDir)
 
