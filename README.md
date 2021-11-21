@@ -169,11 +169,10 @@ python3 sample.py
 
         RETURN
           None if success. Exception if fail.
-
 # History
-0.6.0:
+### 0.6.0:
 - invoke Linux official kmod source code as static link in kmodule
-0.6.1:
+### 0.6.1
 - Add install options: --with-zstd, --with-xz, --with-zlib, --with-openssl
 ```
     python3 setup.py build --help
