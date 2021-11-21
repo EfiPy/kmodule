@@ -73,7 +73,8 @@ def KmodBuild (BuildFolder):
     CurrentDir = os.getcwd ()
     os.chdir (BuildFolder)
 
-    subprocess.run (['make'], check = True)
+    # subprocess.run (['make'], check = True)
+    subprocess.run (['make'])
 
     os.chdir (CurrentDir)
 

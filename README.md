@@ -185,6 +185,8 @@ python3 sample.py
       --with-openssl                       handle PKCS7 signatures
                                            [default=disabled]
 ```
+- Fix rmmod verbose and syslog parameter malfunction
+- Split rmmod function from module.c
 # Arthur
 Max Wu <EfiPy.Core@gmail.com>  
 # License

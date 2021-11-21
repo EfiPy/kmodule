@@ -58,62 +58,6 @@ mod_strerror (
 
 ///////////////////////////////////////////////////////////////////////
 ///
-/// static function for rmmod
-///
-///////////////////////////////////////////////////////////////////////
-
-/***********************************************************************
- *
- * check_module_inuse:
- *
- ***********************************************************************/
-static int check_module_inuse (
-  struct kmod_module *mod
-  )
-{
-  struct kmod_list *holders;
-  int state, ret;
-
-  state = kmod_module_get_initstate(mod);
-
-  if (state == KMOD_MODULE_BUILTIN) {
-    fprintf (stderr, "Module %s is builtin.\n", kmod_module_get_name(mod));
-    return -ENOENT;
-  } else if (state < 0) {
-    fprintf (stderr, "Module %s is not currently loaded\n", kmod_module_get_name(mod));
-    return -ENOENT;
-  }
-
-  holders = kmod_module_get_holders(mod);
-  if (holders != NULL) {
-    struct kmod_list *itr;
-
-    fprintf (stderr, "Module %s is in use by:", kmod_module_get_name(mod));
-
-    kmod_list_foreach(itr, holders) {
-      struct kmod_module *hm = kmod_module_get_module(itr);
-      fprintf(stderr, " %s", kmod_module_get_name(hm));
-      kmod_module_unref(hm);
-    }
-    fputc('\n', stderr);
-
-    kmod_module_unref_list(holders);
-    return -EBUSY;
-  }
-
-  ret = kmod_module_get_refcnt(mod);
-  if (ret > 0) {
-    fprintf (stderr, "Module %s is in use\n", kmod_module_get_name(mod));
-    return -EBUSY;
-  } else if (ret == -ENOENT) {
-    fprintf (stderr, "Module unloading is not supported\n");
-  }
-
-  return ret;
-} // check_module_inuse
-
-///////////////////////////////////////////////////////////////////////
-///
 /// static function for modinfo
 ///
 ///////////////////////////////////////////////////////////////////////
@@ -603,111 +547,12 @@ kmodule_insmod (
 
 } // kmodule_insmod
 
-/***********************************************************************
- *
- * kmodule_rmmod:
- *
- ***********************************************************************/
-static PyObject *
+PyObject *
 kmodule_rmmod (
   PyObject    *Self,
   PyObject    *Args,
   PyObject    *KwArgs
-  )
-{
-  PyObject  *ret;
-  int       wait = 0, force = 0, verbose=0;
-  PyObject  *modules;
-
-  static char   *kwlist[] = {"module", "force", "wait", "verbose", NULL};
-
-  if (!PyArg_ParseTupleAndKeywords (
-      Args,
-      KwArgs,
-      "O|ppi",
-      kwlist,
-      &modules,
-      &wait,
-      &force,
-      &verbose)) {
-    return NULL;
-  }
-
-  if (1)
-  {
-    struct kmod_ctx *ctx;
-    const char      *null_config = NULL;
-    struct kmod_module *mod;
-
-    Py_ssize_t      i, mNum;
-    PyObject        *modName;
-
-    int flags = KMOD_REMOVE_NOWAIT;
-
-    if (force) flags |=  KMOD_REMOVE_FORCE;
-    if (wait)  flags &= ~KMOD_REMOVE_NOWAIT;
-
-    ctx = kmod_new(NULL, &null_config);
-      if (!ctx) {
-        PyErr_Format (PyExc_MemoryError, "kmod_new() failed!");
-        return NULL;
-      }
-
-    ret = Py_None;
-    Py_INCREF (Py_None);
-    log_setup_kmod_log(ctx, verbose);
-
-    mNum = PyTuple_Size (modules);
-    for (i = 0; i < mNum; i++) {
-
-      const char *modStr;
-      struct stat st;
-      int         err;
-
-      modName = PyTuple_GetItem (modules, i);
-      if (modName == NULL) {
-        PyErr_Print ();
-        PyErr_Clear ();
-        continue;
-      }
-      modStr = PyUnicode_AsUTF8 (modName);
-      if (modStr == NULL) {
-        PyErr_Print ();
-        PyErr_Clear ();
-        continue;
-      }
-
-      if (stat(modStr, &st) == 0)
-        err = kmod_module_new_from_path(ctx, modStr, &mod);
-      else
-        err = kmod_module_new_from_name(ctx, modStr, &mod);
-
-      if (err < 0) {
-        PyErr_Format (PyExc_MemoryError, "could not use module %s: %s\n", modStr, strerror(-err));
-        ret = NULL;
-        Py_DECREF (Py_None);
-        break;
-      }
-
-      if (!(flags & KMOD_REMOVE_FORCE) && check_module_inuse(mod) < 0) {
-        goto next;
-      }
-
-      err = kmod_module_remove_module(mod, flags);
-      if (err < 0) {
-        fprintf (stderr, "could not remove module %s: %s\n", modStr, strerror(-err));
-      }
-next:
-      kmod_module_unref(mod);
-
-    }
-
-    kmod_unref(ctx);
-  }
-
-  return ret;
-
-} // kmodule_rmmod
+  );
 
 /***********************************************************************
  *
