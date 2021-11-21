@@ -121,7 +121,7 @@ static PyMethodDef kmodule_methods [] = {
  * Module structure
  *
  ***************************************************************************/
-static struct PyModuleDef kmodule = {
+static struct PyModuleDef kmoduledef = {
 
   PyModuleDef_HEAD_INIT,
 
@@ -130,7 +130,7 @@ static struct PyModuleDef kmodule = {
   -1,                   /* Size of per-interpreter state or -1 */
   kmodule_methods       /* Method table */
 
-}; // kmodule
+}; // kmoduledef
 
 ///////////////////////////////////////////////////////////////////////
 ///
@@ -148,8 +148,25 @@ PyInit__kmodule (
   void
   )
 {
+  PyObject *kmodule, *verInfo;
+
   Py_Initialize();
 
-  return PyModule_Create(&kmodule);
+  kmodule = PyModule_Create(&kmoduledef);
+  if (kmodule == NULL) return NULL;
+
+  verInfo = Py_BuildValue ("(ssss)", __DATE__" "__TIME__, PACKAGE, VERSION, KMOD_FEATURES);
+  if (verInfo == NULL) {
+      Py_DECREF (kmodule);
+      return NULL;
+  }
+
+  if (PyModule_AddObject (kmodule, "_verInfo", verInfo) < 0) {
+      Py_DECREF (kmodule);
+      Py_DECREF(verInfo);
+      return NULL;
+  }
+
+  return kmodule;
 
 } // PyInit__kmodule

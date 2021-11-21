@@ -64,6 +64,26 @@ python3 sample.py
     >>> print (minfo)
       ......
 # Usage
+    version
+
+        DESCRIPTION
+                kmodule version information including kmod version and features.
+
+        DATA STRUCTURE
+
+            class _version
+
+                KMODULE_VER
+                    kmodule release version.
+                KMOD_PACKAGE
+                    kmodule referenced package.
+                KMOD_VERSION
+                    KMOD_PACKAGE version
+                KMOD_FEATURES
+                    KMOD_PACKAGE feature... xz, zlib, zstd, Openssl.
+                BuildTime
+                    installation date and time.
+
     lsmod()
         NAME
                kmodule.lsmod() - Show the status of modules in the Linux Kernel
@@ -187,6 +207,7 @@ python3 sample.py
 ```
 - Fix rmmod verbose and syslog parameter malfunction
 - Split insmod, rmmod, modinfo function from module.c
+- Add version information.
 # Arthur
 Max Wu <EfiPy.Core@gmail.com>  
 # License

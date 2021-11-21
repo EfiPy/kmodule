@@ -13,7 +13,23 @@
 #  GNU General Public License for more details.
 #
 
-from _kmodule import _rmmod, _logging, _modinfo, _insmod
+from _kmodule import _rmmod, _logging, _modinfo, _insmod, _verInfo
+
+class _version:
+
+    KMODULE_VER   = "kmodule 0.6.0"
+
+    BuildTime, KMOD_PACKAGE, KMOD_VERSION, KMOD_FEATURES = _verInfo
+
+    @classmethod
+    def __str__ (cls):
+        return f"{cls.KMODULE_VER}\n{cls.KMOD_PACKAGE} version {cls.KMOD_VERSION}\n{cls.KMOD_FEATURES}\nBuild time: {cls.BuildTime}"
+
+    @classmethod
+    def __repr__ (cls):
+        return cls.__str__()
+
+version = _version()
 
 class _lsmod:
 
@@ -227,4 +243,4 @@ RETURN
   if syslog == True:
     _logging (False)
 
-__all__ = ["insmod", "rmmod", "lsmod", "modinfo"]
+__all__ = ["insmod", "rmmod", "lsmod", "modinfo", "version"]
