@@ -1,7 +1,6 @@
 /*
- * kmodule.c: python wrapper for python wrapper for kmod/tools
- *             insmod, rmmod, lsmod, modinfo
- *   Copyright (C) 2020 - 2021  MaxWu <EfiPy.core@gmail.com>.
+ * insmod.c: python wrapper for python wrapper for kmod/tools/insmod.c
+ *   Copyright (C) 2021  MaxWu <EfiPy.core@gmail.com>.
 
  *   This program is free software; you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by

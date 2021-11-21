@@ -2,6 +2,7 @@
  * kmod-rmmod - remove modules from linux kernel using libkmod.
  *
  * Copyright (C) 2011-2013  ProFUSION embedded systems
+ * Copyright (C) 2021       MaxWu <EfiPy.core@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by

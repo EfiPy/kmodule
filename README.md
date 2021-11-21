@@ -186,7 +186,7 @@ python3 sample.py
                                            [default=disabled]
 ```
 - Fix rmmod verbose and syslog parameter malfunction
-- Split rmmod function from module.c
+- Split insmod, rmmod, modinfo function from module.c
 # Arthur
 Max Wu <EfiPy.Core@gmail.com>  
 # License
