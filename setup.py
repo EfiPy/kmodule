@@ -122,6 +122,7 @@ with open("README.md", "r") as fh:
 
 kmodulec = Extension('_kmodule',
                      ['kmodule.c',
+                      'insmod.c',
                       'rmmod.c',
                       'log.c',
                      ],
