@@ -38,7 +38,7 @@ def modinfo (*module):
 if __name__ == '__main__':
 
   try:
-    modinfo ('hello-5.ko', 'e1000')
+    modinfo ('lkmpg/examples/hello-5.ko', 'e1000')
     print ("=========================================================================")
     TestLsmod ()
     print ("=========================================================================")
@@ -46,7 +46,7 @@ if __name__ == '__main__':
     print ('Exception1...', e)
 
   try:
-    km.insmod ('hello-5.ko', myshort=3, myint=100, mylong=0x100, mystring="String test", myintArray=(-1,0x100))
+    km.insmod ('lkmpg/examples/hello-5.ko', myshort=3, myint=100, mylong=0x100, mystring="String test", myintArray=(-1,0x100))
     mod = km.lsmod ()
     print (mod['hello_5'])
     km.rmmod ('hello_5')
