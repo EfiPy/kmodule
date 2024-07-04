@@ -7,7 +7,7 @@ It test in X86_64 and Rapberry pi 4.
 Ubuntu 20.04 as example...
 ```
 apt update
-apt-get install build-essential libtool pkgconf libzstd-dev liblzma-dev libssl-dev
+apt-get install build-essential libtool pkgconf libzstd-dev liblzma-dev libssl-dev autoconf
 apt-get install python3 python3-pip
 ```
 # Pull kmodule from pypi
